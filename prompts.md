@@ -11,6 +11,7 @@
 ### Pregunta
 
 Considera el siguiente ERD (en formato *mermaid*), conviértelo a un script SQL:
+
 ```mermaid
 erDiagram
      COMPANY {
@@ -215,6 +216,7 @@ CREATE TABLE interview (
 * Todos los `FK` están definidos para reflejar las relaciones del diagrama.
 
 ---
+
 ---
 
 ### Pregunta
@@ -355,11 +357,12 @@ npx prisma migrate dev --name add-review-flag
 ```
 
 ---
+
 ---
 
 ### Pregunta
 
-![Mensaje de error] (prompts_assets/img01.png)
+![Mensaje de error](prompts_assets/img01.png)
 obtengo éste mensaje 
 
 ### Respuesta
@@ -373,8 +376,9 @@ Gracias por compartir la imagen, bro. El mensaje indica que **hay una discrepanc
 Prisma detectó que:
 
 * La **estructura actual en la base de datos (`public` en localhost:5432)** ya contiene tablas y relaciones **que Prisma no tiene registradas en su historial de migraciones.**
-* Esto ocurre típicamente si:
 
+* Esto ocurre típicamente si:
+  
   * Se creó la BD manualmente (via pgAdmin, SQL scripts, etc).
   * Se usó `prisma db pull` pero **nunca se generaron migraciones**.
   * Se cambiaron modelos pero no se aplicaron migraciones.
@@ -407,7 +411,7 @@ Esto hará:
 Si ya hay datos y **no puedes hacer un reset**, haz esto:
 
 1. **Pullear el esquema actual** como base:
-
+   
    ```bash
    npx prisma db pull
    ```
@@ -415,7 +419,7 @@ Si ya hay datos y **no puedes hacer un reset**, haz esto:
 2. Esto actualizará `schema.prisma` para reflejar lo que hay **realmente** en la base de datos.
 
 3. Después puedes generar migraciones desde ahí si haces cambios nuevos:
-
+   
    ```bash
    npx prisma migrate dev --name cambios-nuevos
    ```
@@ -435,11 +439,13 @@ npx prisma migrate reset
 Así tendrás todo limpio y controlado desde los archivos de migración de Prisma.
 
 ---
+
 ---
 
 ### Pregunta
 
 Bro, te voy a pasar el *schema.prisma* actual.  Por favor aplica buenas practicas considerando:
+
 - definición de Indices
 - normalización de la base datos
 - cualquier mejora que consideres para buenas prácticas
@@ -553,11 +559,13 @@ model WorkExperience {
 Crea un archivo `prisma/seed.ts` con algunos candidatos, experiencias, etc., para pruebas rápidas.
 
 ---
+
 ---
 
 ### Pregunta
 
 dale bro, aplica las sugerencias en los 3 rubros:
+
 - índices
 - normalización
 - fechas opcionales
@@ -585,11 +593,13 @@ Listo bro ✅. Apliqué las mejoras que mencionaste al archivo `schema.prisma`, 
 * Se aseguró que todos los `endDate` estén definidos como `DateTime?`
 
 ---
+
 ---
 
 ### Pregunta
 
 Aplica estas sugerencias de normalización:
+
 - institution (de Education) → como tabla aparte
 - title (de WorkExperience) → como tabla aparte
 - location, skills, languages → como tablas aparte
@@ -620,6 +630,7 @@ Listo bro 💾. Ya normalicé tu esquema Prisma aplicando lo que pediste. Puedes
 * `Education` y `WorkExperience` ahora usan `jobTitleId` hacia `JobTitle`
 
 ---
+
 ---
 
 ### Pregunta
@@ -725,6 +736,7 @@ model Employee {
 > Así puedes contar cuántas veces una empresa contrató a alguien para el mismo `positionTitle` y calcular la rotación.
 
 ---
+
 ---
 
 ### Pregunta
@@ -744,17 +756,19 @@ Perfecto bro 👌. El esquema contiene los modelos necesarios para poblar **10 c
 Voy a generar ahora un archivo `seed.ts` de Prisma que:
 
 * Inserta 5 instituciones educativas
-* Inserta 5 títulos laborales
-* Inserta 5 carreras
-* Crea 10 candidatos con:
 
+* Inserta 5 títulos laborales
+
+* Inserta 5 carreras
+
+* Crea 10 candidatos con:
+  
   * 1 educación
   * 1 experiencia laboral
   * 1 CV (resume)
   * Asociaciones con `career`, `institution` y `jobTitle`
 
 Dame un momento y te lo preparo.
-
 
 Listo bro 💾. Aquí tienes el archivo `seed.ts` que puedes usar con Prisma para poblar tu base de datos con 10 candidatos completos:
 
@@ -765,10 +779,13 @@ Listo bro 💾. Aquí tienes el archivo `seed.ts` que puedes usar con Prisma par
 ### ✅ ¿Qué incluye el seeder?
 
 * 5 instituciones educativas
-* 5 títulos laborales (`JobTitle`)
-* 5 carreras (`Career`)
-* 10 candidatos con:
 
+* 5 títulos laborales (`JobTitle`)
+
+* 5 carreras (`Career`)
+
+* 10 candidatos con:
+  
   * 1 educación (con institución y título)
   * 1 experiencia laboral (con título)
   * 1 `Resume` (CV)
@@ -799,6 +816,7 @@ npx prisma db seed
 ```
 
 ---
+
 ---
 
 ### Pregunta
@@ -819,4 +837,5 @@ Listo bro 🛠️. Ya te generé el script SQL para migrar la estructura de tu b
 * **`ALTER TABLE ADD COLUMN`** para campos nuevos en modelos que ya existían
 
 ---
+
 ---
